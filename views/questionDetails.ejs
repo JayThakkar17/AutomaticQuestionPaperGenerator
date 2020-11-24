@@ -1,0 +1,226 @@
+<%- include('partials/headerFaculty.ejs') %>
+<style type="text/css">
+
+    table{
+       width: 100%;
+    }
+    .row-1{
+        display: flex;
+        flex-direction: row;
+    }
+    .input1{
+        width: 70%;
+    }
+    .col-sm-8{
+        margin-top: 10px;
+    }
+    .contact1-form-btn{
+        margin: 50px 10px;
+    }
+    .customBtn{
+        width: 10%;
+    }
+    .sideleft{position: relative;
+    width: 45%;
+	float: left;
+    margin-bottom: 20px;}
+	.clearfix{
+    clear:both
+}
+.sideright{position: relative;
+    width: 45%;
+	float: right;
+    margin-bottom: 20px;}
+	.clearfix{
+    clear:both
+}
+.texta{
+
+	border-radius: 25px;
+    padding: 12px 30px;
+	resize: none;
+	outline: none;
+	}
+.contact1-form{
+	width: 80%;
+}
+.input1{
+    width: 100%;
+}
+form{
+    margin-top: -100px;
+}
+</style>
+    <div class="app-content" style="padding-top: 40px;">
+        <div align="center">
+            <%	if (errorMessage) { %>
+                <div class="alert alert-danger alert-dismissible"  style=" text-align: center;">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <%= errorMessage %>
+                  </div>
+
+            <% } else if(okMessage){%>
+                <div class="alert alert-success alert-dismissible" style="width: 50%;text-align: center;;">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <%= okMessage %>
+                                    </div>
+                                <%}%>
+        <nav style="position: fixed;background-color: transparent;" class="navbar navbar-expand navbar-light bg-white">
+            <button type="button" class="btn btn-sidebar" data-toggle="sidebar"><i class="icon-menu"></i></button>
+        </nav>
+        <nav aria-label="breadcrumb">
+        </nav>
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2><%= mQuestion.program%> - <b><%= mQuestion.course%></b> |Question Details</h2></div>
+                        <div class="col-sm-4">
+
+                    </div>
+                        </div>
+                    </div>
+                    <form action="/updateQuestion/<%= mQuestion._id%>" method="post">
+                    <table>
+                        <input hidden  type="text" value="<%=mQuestion.program %>" name="programId">
+                        <input hidden  type="text" value="<%=mQuestion.course %>" name="courseId">
+                        <input hidden  type="text" value="<%=mQuestion.class %>" name="classId">
+                        <tr>
+                            <div class="wrap-input1 validate-input"  >
+                                <div class="row-1">
+                                <td><label for="code"><div class="col-sm-8"><h5><b> Question  </b></h6></div></label></td>
+                                <td>
+                                    <div class="clearfix"></div>
+                                        <div class="wrap-input1 validate-input"  >
+                                            <textarea class="input1 texta" rows="6" name="question" placeholder="Question Text"><%= mQuestion.text %></textarea>
+                                </td>
+                            </div>
+                        </tr>
+
+                         <tr>
+                            <div class="wrap-input1 validate-input"  >
+                                <div class="row-1">
+                                <td><label for="code"><div class="col-sm-8"><h5><b>Notes  </b></h6></div></label></td>
+                                <td>
+                                    <div class="clearfix"></div>
+                                        <div class="wrap-input1 validate-input"  >
+                                            <textarea class="input1 texta" rows="6" name="note" placeholder="Question Text"><%= mQuestion.note %></textarea>
+                                </td>
+                            </div>
+                        </tr>
+
+                         <div class="wrap-input1 validate-input"  >
+                            <div class="row-1">
+                        <tr>
+                            <div class="row-1"></div>
+                            <td><label for="code"><div class="col-sm-8"><h5><b>Topic </b></h6></div></label></td>
+                            <td>
+                                <input disabled class="input1" type="text" value="<%= mQuestion.topic%>" name="topic" placeholder="Course code" required>
+                                <!-- <select class="input1" name="mtopic">
+                                    <option value="<%=mQuestion.topic%>" selected>Select a topic</option>
+                                    <% for(let i = 0; mTopics[i]; i++){ %>
+                                        <option value="<%=mTopics[i]%>">
+                                            <%=mTopics[i]%></option>
+                                    <%}%>
+                                </select> -->
+                                 </div>
+                        </tr>
+                         <div class="wrap-input1 validate-input"  >
+                            <div class="row-1">
+                        <tr>
+                            <div class="row-1"></div>
+                            <td><label for="code"><div class="col-sm-8"><h5><b>Difficulty  </b></h6></div></label></td>
+                            <td><input disabled class="input1" type="text" value="<%= mQuestion.difficulty%>" name="difficulty" placeholder="Questions" required>
+                                <!-- <select class="input1" name="level">
+                                    <option>Select Difficulty level</option>
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select> -->
+                            </div>
+                        </tr>
+                         <div class="wrap-input1 validate-input"  >
+                            <div class="row-1">
+                        <tr>
+                            <div class="row-1"></div>
+                            <td><label for="code"><div class="col-sm-8"><h5><b>Marks </b></h6></div></label></td>
+                            <td><input  class="input1" type="text" value="<%= mQuestion.mark%>" name="marks" placeholder="Marks" required>
+                                 </div>
+                        </tr>
+                        <div class="wrap-input1 validate-input"  >
+                            <div class="row-1">
+                        <tr>
+                            <div class="row-1"></div>
+                            <td><label for="code"><div class="col-sm-8"><h5><b>Type </b></h6></div></label></td>
+                            <td>
+                                <input disabled class="input1" type="text" value="<%= mQuestion.type%>" name="type" placeholder="Course code" required>
+                                <!-- <select class="input1" name="type" onchange="showOption(this.value)" id="qType">
+                                    <option>Select Question Type</option>
+                                    <option value="theory">Theory</option>
+                                    <option value="mcq">MCQ</option>
+                                    <option value="true/false">True/False</option>
+                                    <option value="yes/no">Yes/No</option>
+                                </select> -->
+                                </div>
+                        </tr>
+                        <% if(mQuestion.type !== 'theory'){ %>
+                            <% for(let i = 0; mQuestion.options[i]; i++){ %>
+                            <div class="wrap-input1 validate-input"  >
+                                <div class="row-1">
+                            <tr>
+                                <div class="row-1"></div>
+                                <td><label for="code"><div class="col-sm-8"><h5><b>Option<%=i+1%> </b></h6></div></label></td>
+                                <td><input  class="input1" type="text" value="<%= mQuestion.options[i]%>" name="option<%=i+1%>" placeholder="Course code" required="required">
+                                </div>
+                            </tr>
+                            <%}%>
+                        <%}%>
+                        <div class="wrap-input1 validate-input"  >
+                            <div class="row-1">
+                        <tr>
+                            <div class="row-1"></div>
+                            <td><label for="code"><div class="col-sm-8"><h5><b>Answer </b></h6></div></label></td>
+                            <td><input  class="input1" type="text" value="<%= mQuestion.answer%>" name="answer" placeholder="Answer">
+                                 </div>
+                        </tr>
+                        <tr>
+                              <div class="row-1"></div>
+                            <td><label for="code"><div class="col-sm-8"><h5><b> Public/Private </b></h6></div></label></td>
+                            <td>
+                                <% if(!mQuestion.public) {%>
+                                <select class="input1" name="public" >
+                                        <option value="private" selected>Private</option>
+                                        <option value="public">Make Public</option>
+                                </select>
+                                <% } else {%>
+                                <select class="input1" name="public" >
+                                    <option value="public" selected>Public</option>
+                                    <option value="private">Meke Private</option>
+                                </select>
+                                <%}%>
+                            </td>
+                            </div>
+                        </tr>
+                    </table>
+
+                    <hr>
+                    <div class="container-contact1-form-btn">
+                        <button type="submit" class="contact1-form-btn" >
+							<span>
+								Update
+								<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+							</span>
+                        </button>
+                       <a class="contact1-form-btn" href="/deleteQuestion/<%= mQuestion._id%>/<%= mQuestion.class%>">
+							<span>
+								Delete
+								<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+							</span>
+                        </a>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

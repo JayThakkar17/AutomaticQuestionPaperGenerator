@@ -1,0 +1,158 @@
+
+<%- include('partials/headerFaculty.ejs') %>
+
+<style>
+	.multiselect {
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  box-sizing: border-box;
+  font-weight: 400;
+
+  display: block;
+    background: #d0d0d0;
+    font-family: Montserrat-Bold;
+    color: #666666;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+
+  border: 1px #dadada thick;
+}
+
+#checkboxes label {
+
+  font-weight: 400;
+  text-align: left;
+  display: block;
+    width: 100%;
+    background: #d0d0d0;
+    font-family: Montserrat-Bold;
+	color: #666666;
+	border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+
+}
+
+#checkboxes .label1:hover {
+  background-color: #1e90ff;
+}
+.arrow {
+  height: .9vw;
+  width: .9vw;
+  border-style: solid;
+  border-color: rgb(110, 109, 109);
+  border-width: 0px 3px 3px 0px;
+  transform: rotate(45deg);
+  transition: border-width 150ms ease-in-out;
+  position: relative;
+  float: right;
+}
+
+</style>
+
+<div align="center">
+<form class="contact1-form validate-form" action="/generateQuestionPaper/<%=mClass.classId%>" method="POST">
+				<span class="contact1-form-title">
+					Generate Question Paper
+				</span>
+          <hr>
+          <span class="contact1-form-title">
+					Select Constrains for the Questions
+				</span>
+
+	<div class=" wrap-input1 validate-input"  >
+	<div id="checkboxes">
+	<a href="#content" class="sidebar-nav-link selectBox" data-toggle="collapse" style="color: #FFFFFF; text-decoration: none;">
+		<label class="" data-toggle="collapse">Select Topics<div class="arrow"></div></label></a>
+			<ul id="content" class="collapse" data-parent="#sidebar-nav">
+				<% for(let i = 0; mClass.topics[i]; i++) {%>
+					<li><label  for="one">
+          <input type="checkbox" name="mTopics" value="<%= mClass.topics[i]%>" id="one"/><%= mClass.topics[i]%></label></li>
+          <input type="hidden" value="<%= mClass.topics[i]%>" name="allTopics">
+				<%}%>
+			</ul>
+				<span class="shadow-input1"></span>
+  </div>
+
+  <div class=" wrap-input1 validate-input"  >
+	<div id="checkboxes">
+	<a href="#types" class="sidebar-nav-link selectBox" data-toggle="collapse" style="color: #FFFFFF; text-decoration: none;">
+		<label class="" data-toggle="collapse">Select types oF Qustions <div class="arrow"></div></label></a>
+			<ul id="types" class="collapse" data-parent="#sidebar-nav">
+					<li><label  for="one">
+					<input type="checkbox" name="mTypes" value="theory" id="one"/>Theory</label></li>
+          <li><label  for="one">
+					<input type="checkbox" name="mTypes" value="mcq" id="one"/>MCQ</label></li>
+          <li><label  for="one">
+					<input type="checkbox" name="mTypes" value="true/false" id="one"/>True/False</label></li>
+          <li><label  for="one">
+					<input type="checkbox" name="mTypes" value="yes/no" id="one"/>Yes/No</label></li>
+
+			</ul>
+				<span class="shadow-input1"></span>
+	</div>
+
+				<div class="wrap-input1 validate-input"  >
+					<input class="input1" type="number" name="nEasy" value=1 placeholder="Number of Easy questions">
+					<span class="shadow-input1"></span>
+				</div>
+
+				<div class="wrap-input1 validate-input"  >
+					<input class="input1" type="number" value=1 name="nMedium" placeholder="Number of Medium questions">
+					<span class="shadow-input1"></span>
+				</div>
+
+
+				<div class="wrap-input1 validate-input"  >
+					<input class="input1" type="number" value=1 name="nHard" placeholder="Number of Difficult questions">
+					<span class="shadow-input1"></span>
+				</div>
+				<div class="container-contact1-form-btn">
+					<button typ="submit" class="contact1-form-btn">
+						<span>
+							GENERATE
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+			</div>
+</div></div></div>
+<script>
+	var expanded = false;
+
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+</script>
+

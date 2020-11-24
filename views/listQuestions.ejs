@@ -1,0 +1,199 @@
+<%- include('partials/headerFaculty.ejs') %>
+<style type="text/css">
+    body {
+        color: #404E67;
+        font-family: 'Open Sans', sans-serif;
+    }
+    .table-wrapper {
+        width: 100%;
+        margin: 20px auto;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    }
+    .table-title {
+        padding-bottom: 10px;
+        margin: 0 0 10px;
+    }
+    .table-title h2 {
+        margin: 6px 0 0;
+        font-size: 22px;
+    }
+    .table-title .add-new {
+        float: right;
+        height: 30px;
+        font-weight: bold;
+        font-size: 12px;
+        text-shadow: none;
+        min-width: 100px;
+        border-radius: 50px;
+        line-height: 13px;
+    }
+    .table-title .add-new i {
+        margin-right: 4px;
+    }
+    table.table {
+        table-layout: fixed;
+    }
+    table.table tr th, table.table tr td {
+        border-color: #e9e9e9;
+    }
+    table.table th i {
+        font-size: 13px;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+    table.table th:last-child {
+        width: 100px;
+    }
+    table.table td a {
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 5px;
+        min-width: 24px;
+    }
+    table.table td a.add {
+        color: #27C46B;
+    }
+    table.table td a.edit {
+        color: #FFC107;
+    }
+    table.table td a.delete {
+        color: #E34724;
+    }
+    table.table td i {
+        font-size: 19px;
+    }
+    table.table td a.add i {
+        font-size: 24px;
+        margin-right: -1px;
+        position: relative;
+        top: 3px;
+    }
+    table.table .form-control {
+        height: 32px;
+        line-height: 32px;
+        box-shadow: none;
+        border-radius: 2px;
+    }
+    table.table .form-control.error {
+        border-color: #f50000;
+    }
+    table.table td .add {
+        display: none;
+    }
+    .question-div{
+        padding: 0;
+        margin: 0;
+    }
+    .question{
+        background-color: #e9e9e9;
+    }
+    .question p{
+        font-size: large;
+        font-family:  sans-serif;
+        padding: 5px;
+    }
+    .opts{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .opts li{
+        display: inline-block;
+        width: 15%;
+        border: 1px solid black;
+        padding: 5px 30px;
+        font-size: 1rem;
+        border-radius: 20px;
+        background-color: #fff;
+    }
+</style>
+<div class="app-content" style="padding-top: 40px;">
+    <nav style="position: fixed;background-color: transparent;" class="navbar navbar-expand navbar-light bg-white">
+    <button type="button" class="btn btn-sidebar" data-toggle="sidebar"><i class="icon-menu"></i></button>
+</nav><nav aria-label="breadcrumb"></nav>
+
+<div class="container">
+    <div align="center">
+
+        <%	if (errorMessage) { %>
+            <div class="alert alert-danger alert-dismissible"  style=" text-align: center;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <%= errorMessage %>
+              </div>
+
+        <% } else if(okMessage){%>
+            <div class="alert alert-success alert-dismissible" style="width: 50%;text-align: center;;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <%= okMessage %>
+                                </div>
+                            <%}%>
+                    </div>
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2><%=mQuestions[0].program%><b> <%=mQuestions[0].course%> </b> || Questions </h2></div>
+                    <div class="col-sm-4">
+                        <a href="/getCreateQuestion/<%=mQuestions[0].class%>"><button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>Add New</button></a>
+                    </div>
+                </div>
+            </div>
+                <table class="table table-bordered" id="data">
+                    <thead>
+                        <tr>
+                            <th style="background-color: #2e8cc2; opacity:0.9; width:50px">ID</th>
+                            <th style="background-color: #2e8cc2; opacity:0.9">Question</th>
+                            <th style="background-color: #2e8cc2; opacity:0.9">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                         <% for(var i=0; i < mQuestions.length; i++) {  %>
+                            <tr>
+                            <td><%= i+1 %></td>
+                            <td>
+                                <div class="question-div">
+                                    <div class="question">
+                                        <p><%= mQuestions[i].text %></p>
+                                    </div>
+                                    <div class="question-opt">
+                                        <ul class="opts">
+                                            <li><%= mQuestions[i].difficulty %></li>
+                                            <li><%= mQuestions[i].mark %></li>
+                                            <li><%= mQuestions[i].topic %></li>
+                                            <li><%= mQuestions[i].type %></li>
+                                            <%if(mQuestions[i].public){%>
+                                            <li>public</li>
+                                            <%} else {%>
+                                            <li>Private</li>
+                                            <%}%>
+                                            <!-- <% if(mQuestions[i].type === 'mcq') {%>
+                                                 <li>
+                                                    <select>
+                                                        <option value="">Options</option>
+                                                    <% for(var j=0;mQuestions[i].options[j]; j++) {  %>
+                                                        <option><%= mQuestions[i].options[j] %></option>
+                                                     <% }%>
+                                                    </select>
+                                                    </li>
+                                            <% }%> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="/questionDetails/<%= mQuestions[i]._id%>" class='edit' title='Edit' data-toggle='tooltip'>
+                                    <i class='material-icons'>&#xE254;</i>
+                                </a>
+                            </td>
+                        </tr>
+                         <% } %>
+                         </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

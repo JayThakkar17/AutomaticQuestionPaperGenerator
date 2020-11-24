@@ -1,0 +1,56 @@
+<%- include('partials/headerFaculty.ejs') %>
+
+<div class="app-content" style="padding-top: 40px;">
+	<nav style="position: fixed;background-color: transparent;" class="navbar navbar-expand navbar-light bg-white">
+		<button type="button" class="btn btn-sidebar" data-toggle="sidebar"><i class="icon-menu"></i></button>
+	</nav>
+	<nav aria-label="breadcrumb"></nav>
+<div align="center">
+	<%	if (errorMessage) { %>
+		<div class="alert alert-danger alert-dismissible"  style=" text-align: center;">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<%= errorMessage %>
+		  </div>
+						 
+	<% } else if(okMessage){%>
+		<div class="alert alert-success alert-dismissible" style="width: 50%;text-align: center;;">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<%= okMessage %>
+							</div>
+						<%}%>
+<form action="createClass" method="post" class="contact1-form validate-form">
+				<span class="contact1-form-title">
+					Create a Class
+				</span>
+				<input type="hidden" name="fid" value="<%= user.email %>">
+				<div class="wrap-input1 validate-input"  >
+					<!--<textarea class="input1" name="message" placeholder="Message"></textarea>-->
+					<select class="input1"  name="fprogram" required>
+						<option value="">--Select Program --</option>
+						<% for(let i=0; i < programs.length; i++) {  %>
+							<option value="<%= programs[i]._id %>"><%= programs[i]._id %></option>
+						<%}%>
+					</select>
+					<span class="shadow-input1"></span>
+                </div>
+                <div class="wrap-input1 validate-input"  >
+					<!--<textarea class="input1" name="message" placeholder="Message"></textarea>-->
+					<select class="input1" name="fcourse" required>
+						<option value="">--Select Course --</option>
+						<% for(let i=0; i < courses.length; i++) {  %>
+							<option value="<%= courses[i]._id %>"><%= courses[i]._id %></option>
+						<%}%>
+					</select>
+					<span class="shadow-input1"></span>
+				</div>
+				<div class="container-contact1-form-btn">
+					<button type="submit" class="contact1-form-btn">
+						<span>
+							CREATE
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+			</div>
+</div></div></div>

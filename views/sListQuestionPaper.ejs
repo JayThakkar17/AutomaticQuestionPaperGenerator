@@ -1,0 +1,154 @@
+
+<%- include('partials/headerStudent.ejs') %>
+
+<style>
+	.multiselect {
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  box-sizing: border-box;
+  font-weight: 400;
+
+  display: block;
+    background: #d0d0d0;
+    font-family: Montserrat-Bold;
+    color: #666666;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+
+  border: 1px #dadada thick;
+}
+
+#checkboxes label {
+
+  font-weight: 400;
+  text-align: left;
+  display: block;
+    width: 100%;
+    background: #d0d0d0;
+    font-family: Montserrat-Bold;
+	color: #666666;
+	border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+
+}
+
+#checkboxes .label1:hover {
+  background-color: #1e90ff;
+}
+.arrow {
+  height: .9vw;
+  width: .9vw;
+  border-style: solid;
+  border-color: rgb(110, 109, 109);
+  border-width: 0px 3px 3px 0px;
+  transform: rotate(45deg);
+  transition: border-width 150ms ease-in-out;
+  position: relative;
+  float: right;
+}
+
+</style>
+
+<div align="center">
+<form class="contact1-form validate-form" action="/findQuestionPaper" method="POST">
+				<span class="contact1-form-title">
+					Find Questions Paper
+				</span>
+          <hr>
+          <span class="contact1-form-title">
+					Select Constrains for the QuestionsPaper
+          </span>
+ <div class=" wrap-input1 validate-input"  >
+    <select class="input1" name="faculty" required>
+        <option value="">Select Faculty</option>
+         <% for(var i=0; i < faculties.length; i++) {  %>
+             <option value="<%=faculties[i]._id%>"><%=faculties[i].name%></option>
+         <% } %>
+        </select>
+    </div>
+    <span class="shadow-input1"></span>
+
+    <div class=" wrap-input1 validate-input"  >
+    <select class="input1" name="program" required>
+        <option value="">Select Program</option>
+         <% for(var i=0; i < programs.length; i++) {  %>
+             <option value="<%=programs[i]._id%>"><%=programs[i]._id%></option>
+         <% } %>
+        </select>
+    </div>
+    <span class="shadow-input1"></span>
+
+     <div class=" wrap-input1 validate-input"  >
+    <select class="input1" name="course" required>
+        <option>Select Course</option>
+         <% for(var i=0; i < courses.length; i++) {  %>
+             <option value="<%=courses[i]._id%>"><%= courses[i]._id%></option>
+         <% } %>
+        </select>
+    </div>
+    <span class="shadow-input1"></span>
+
+    <div class=" wrap-input1 validate-input"  >
+	<div id="checkboxes">
+	<a href="#diff" class="sidebar-nav-link selectBox" data-toggle="collapse" style="color: #FFFFFF; text-decoration: none;">
+		<label class="" data-toggle="collapse">Select Difficutly Level<div class="arrow"></div></label></a>
+			<ul id="diff" class="collapse" data-parent="#sidebar-nav">
+					<li><label  for="one">
+					<input type="checkbox" name="mDiff" value="easy" id="one"/>Easy</label></li>
+          <li><label  for="one">
+					<input type="checkbox" name="mDiff" value="medium" id="one"/>Medium</label></li>
+          <li><label  for="one">
+					<input type="checkbox" name="mDiff" value="hard" id="one"/>Hard</label></li>
+          	</ul>
+				<span class="shadow-input1"></span>
+	</div>
+				<div class="container-contact1-form-btn">
+					<button typ="submit" class="contact1-form-btn">
+						<span>
+							FIND
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+			</form>
+			</div>
+</div></div></div>
+<script>
+	var expanded = false;
+
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+</script>
+

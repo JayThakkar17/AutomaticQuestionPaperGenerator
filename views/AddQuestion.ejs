@@ -1,0 +1,145 @@
+<%- include('partials/headerFaculty.ejs') %>
+
+<style>
+	.sideleft{position: relative;
+    width: 45%;
+	float: left;
+    margin-bottom: 20px;}
+	.clearfix{
+    clear:both
+}
+.sideright{position: relative;
+    width: 45%;
+	float: right;
+    margin-bottom: 20px;}
+	.clearfix{
+    clear:both
+}
+.texta{
+	border-radius: 25px;
+    padding: 12px 30px;
+	resize: none;
+	outline: none;
+	}
+.contact1-form{
+	width: 80%;
+}
+</style>
+<script>
+$(function(){
+	$(':input[type=number]').on('mousewheel',function(e){ $(this).blur(); });
+});
+</script>
+<div align="center">
+
+<form class="contact1-form validate-form" action="/createQuestion/<%=mClass.classId%>" method="POST">
+				<span class="contact1-form-title">
+					Add Question
+				</span>
+				<%	if (errorMessage) { %>
+					<div class="alert alert-danger alert-dismissible"  style=" text-align: center;">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<%= errorMessage %>
+					  </div>
+
+				<% } else if(okMessage){%>
+					<div class="alert alert-success alert-dismissible" style="width: 50%;text-align: center;;">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<%= okMessage %>
+										</div>
+									<%}%>
+					<input hidden  type="text" value="<%=mClass.program %>" name="programId">
+					<input hidden  type="text" value="<%=mClass.course %>" name="courseId">
+					<input hidden  type="text" value="<%=mClass.classId %>" name="classId">
+			<div class="wrap-input1 validate-input">
+				<div class="sideleft validate-input"  >
+					<select class="input1" name="mtopic" required>
+						<option value="" selected>Select a topic</option>
+						<% for(let i = 0; mClass.topics[i]; i++){ %>
+							<option value="<%=mClass.topics[i]%>"><%=mClass.topics[i]%></option>
+						<%}%>
+					</select>
+					<span class="shadow-input1"></span>
+				</div>
+				<div class="sideright validate-input"  >
+					<select class="input1" name="level" required>
+						<option value="">Select Difficulty level</option>
+						<option value="easy">Easy</option>
+						<option value="medium">Medium</option>
+						<option value="hard">Hard</option>
+					</select>
+					<span class="shadow-input1"></span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+
+			<div class="wrap-input1 validate-input">
+				<div class="sideleft validate-input" >
+					<input class="input1" type="number" required name="marks" placeholder="Marks">
+					<span class="shadow-input1"></span>
+				</div>
+				<div class="sideright validate-input" >
+					<select class="input1" required name="type"  onchange="showOption(this.value)" id="qType">
+						<option value="">Select Question Type</option>
+						<option value="theory">Theory</option>
+						<option value="mcq">MCQ</option>
+						<option value="true/false">True/False</option>
+						<option value="yes/no">Yes/No</option>
+					</select>
+					<span class="shadow-input1"></span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+				<div class="wrap-input1 validate-input"  >
+					<textarea class="input1 texta" rows="6" required name="question" placeholder="Question Text"></textarea>
+					<span class="shadow-input1"></span>
+				</div>
+
+					<div class="wrap-input1 validate-input"  >
+						<textarea class="input1 texta" rows="4" name="note" placeholder="Instructions"></textarea>
+						<span class="shadow-input1"></span>
+				</div>
+ 			<div id="opt">
+				<div class="wrap-input1 validate-input"  >
+					<input class="input1" type="text" name="option1" placeholder="option 1">
+					<span class="shadow-input1"></span>
+				</div>
+				<div class="wrap-input1 validate-input"  >
+					<input class="input1" type="text" name="option2" placeholder="option 2">
+					<span class="shadow-input1"></span>
+				</div>
+				<div class="wrap-input1 validate-input"  >
+					<input class="input1" type="text" name="option3" placeholder="option 3">
+					<span class="shadow-input1"></span>
+				</div>
+				<div class="wrap-input1 validate-input" >
+					<input class="input1" type="text" name="option4" placeholder="option 4">
+					<span class="shadow-input1"></span>
+				</div>
+			</div>
+				 <div class="wrap-input1" >
+					<input class="input1" type="text" name="answer" placeholder="Answer">
+					<span class="shadow-input1"></span>
+				</div>
+				<div class="container-contact1-form-btn">
+					<button type="submit" class="contact1-form-btn">
+						<span>
+							ADD
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+					</button>
+					<span class="shadow-input1"></span>
+				</div>
+				<br><br><br><br><br>
+			</form>
+			</div>
+</div></div></div>
+
+<script type="text/javascript">
+	function showOption(selected) {
+
+		if (selected == 'mcq'){document.getElementById("opt").style.display = "block";}
+		else{document.getElementById("opt").style.display = "none";}
+	}
+	showOption('');
+</script>

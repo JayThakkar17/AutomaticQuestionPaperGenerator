@@ -1,0 +1,120 @@
+<%- include('partials/headerFaculty.ejs') %>
+<style type="text/css">
+
+    table{
+        margin-left: 100px;
+    }
+    .row-1{
+        display: flex;
+        flex-direction: row;
+    }
+    .input1{
+        width: 70%;
+    }
+    .col-sm-8{
+        margin-top: 10px;
+    }
+    .contact1-form-btn{
+        margin: 50px 10px;
+    }
+    .customBtn{
+        width: 10%;
+    }
+</style>
+    <div class="app-content" style="padding-top: 40px;">
+        <nav style="position: fixed;background-color: transparent;" class="navbar navbar-expand navbar-light bg-white">
+            <button type="button" class="btn btn-sidebar" data-toggle="sidebar"><i class="icon-menu"></i></button>
+        </nav>
+        <nav aria-label="breadcrumb">
+        </nav>
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2><%= mClass.program%> - <b><%= mClass.course%></b></h2></div>
+                        </div>
+                    </div>
+                    <form action="#" method="post">
+                    <table>
+                        <div class="wrap-input1 validate-input"  >
+                            <div class="row-1">
+                        <tr>
+                            <div class="row-1"></div>
+                            <td><label for="code"><div class="col-sm-8"><h5><b> ProgramCode  </b></h6></div></label></td>
+                            <td><input disabled class="input1" type="text" value="<%= mClass.program%>" name="pid" placeholder="Course code" required="required>
+                                <span class="shadow-input1"></span></td>
+                                 </div>
+                        </tr>
+
+                         <div class="wrap-input1 validate-input"  >
+                            <div class="row-1">
+                        <tr>
+                            <div class="row-1"></div>
+                            <td><label for="code"><div class="col-sm-8"><h5><b>CourseCode  </b></h6></div></label></td>
+                            <td><input disabled class="input1" type="text" value="<%= mClass.course%>" name="cname" placeholder="Course code" required="required">
+                                <span class="shadow-input1"></span></td>
+                                 </div>
+                        </tr>
+
+                        <div class="wrap-input1 validate-input"  >
+                            <div class="row-1">
+                             <tr>
+                                     <td><label for="code"><div class="col-sm-8"><h5><b> All_Topics  </b></h6></div></label></td>
+                                    <td>
+                                        <select class="input1" name="fprogram">
+                                        <option>All Topics</option>
+                                            <% for(let t = 0; t < mClass.topics.length; t++) { %>
+                                                <option><%= mClass.topics[t] %></option>
+                                            <% }%>
+                                        </select>
+                                    <span class="shadow-input1"></span>
+                                    </td>
+                                    <td class="customBtn">
+                                        <div class="container-contact1-form-btn"> </div>
+                                         <a href="/listTopics/<%=mClass.cid%>"><button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add/List</button></a>
+                                       </a>
+                                    </div   >
+                                    </td>
+                        </tr>
+                    </table>
+                    <hr>
+                    <div class="container-contact1-form-btn">
+                    <a class="contact1-form-btn" href="/getCreateQuestion/<%=mClass.cid%>">
+							<span>
+								AddQuestion
+								<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+							</span>
+                        </a>
+                         <a class="contact1-form-btn" href="/getGenerateQuestionpaper/<%=mClass.cid%>">
+							<span>
+								GenerateQuestionPaper
+								<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+							</span>
+                        </a>
+                     <a class="contact1-form-btn" href="/listQuestions/<%=mClass.cid%>">
+							<span>
+								ListQuestions
+								<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+							</span>
+                        </a>
+                         <a class="contact1-form-btn" href="/listQuestionPapers/<%=mClass.cid%>">
+							<span>
+								ListQuestionPapers
+								<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+							</span>
+                        </a>
+                        <hr>
+                       <a class="contact1-form-btn"
+                        href="/deleteClass/<%= mClass.cid%>">
+							<span>
+								DeleteClass
+								<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+							</span>
+                        </a>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

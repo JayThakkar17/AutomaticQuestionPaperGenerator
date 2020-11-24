@@ -1,0 +1,17 @@
+
+<% if(user.role === "admin"){%>
+    <%- include('partials/headerAdmin.ejs') %>
+<%}%>
+
+<% if(user.role === "faculty"){%>
+<%- include('partials/headerFaculty.ejs') %>
+<%}%>
+
+<% if(user.role === "student"){%>
+<%- include('partials/headerStudent.ejs') %>
+<%}%>
+
+
+<h1 align="center">
+    <%= feedBack %>
+</h1>

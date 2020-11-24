@@ -1,0 +1,602 @@
+<% if(user.role === "faculty"){%>
+    <%- include('partials/headerFaculty.ejs') %>
+<%}%>
+
+<% if(user.role === "student"){%>
+<%- include('partials/headerStudent.ejs') %>
+<%}%>
+<style type="text/css">
+body {
+        color: #404E67;
+        font-family: 'Open Sans', sans-serif;
+    }
+    .table-wrapper {
+        width: 100%;
+        margin: 20px auto;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    }
+    .table-title {
+        padding-bottom: 10px;
+        margin: 0 0 10px;
+    }
+    .table-title h2 {
+        margin: 6px 0 0;
+        font-size: 22px;
+    }
+    .table-title .add-new {
+        float: right;
+        height: 30px;
+        font-weight: bold;
+        font-size: 12px;
+        text-shadow: none;
+        min-width: 100px;
+        border-radius: 50px;
+        line-height: 13px;
+    }
+    .table-title .add-new i {
+        margin-right: 4px;
+    }
+    table.table {
+        table-layout: fixed;
+    }
+
+    table.table th i {
+        font-size: 13px;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+    table.table th:last-child {
+        width: 100px;
+    }
+    table.table td a {
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 5px;
+        min-width: 24px;
+    }
+    table.table td a.add {
+        color: #27C46B;
+    }
+    table.table td a.edit {
+        color: #FFC107;
+    }
+    table.table td a.delete {
+        color: #E34724;
+    }
+    table.table td i {
+        font-size: 19px;
+    }
+    table.table td a.add i {
+        font-size: 24px;
+        margin-right: -1px;
+        position: relative;
+        top: 3px;
+    }
+    table.table .form-control {
+        height: 32px;
+        line-height: 32px;
+        box-shadow: none;
+        border-radius: 2px;
+    }
+    table.table .form-control.error {
+        border-color: #f50000;
+    }
+    table.table td .add {
+        display: none;
+    }
+    table tr td{
+        background-color: white;
+        color: black;
+        font-size: 1rem;
+    }
+    p,ol li {
+        color: black;
+        font-size: 1rem;
+        font-weight: normal;
+    }
+    .question-div{
+        padding: 0;
+        margin: 0;
+    }
+    .question{
+        background-color: #e9e9e9;
+    }
+    .question p{
+        font-size: large;
+        font-family:  sans-serif;
+        padding: 5px;
+    }
+    .opts{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .opts li{
+        display: inline-block;
+        width: 15%;
+        border: 1px solid black;
+        padding: 5px 30px;
+        font-size: 1rem;
+        border-radius: 20px;
+        background-color: #fff;
+    }
+    /* stype for form*/
+
+    .sideleft{position: relative;
+    width: 45%;
+	float: left;
+    margin-bottom: 20px;}
+	.clearfix{
+    clear:both
+}
+.sideright{position: relative;
+    width: 45%;
+	float: right;
+    margin-bottom: 20px;}
+	.clearfix{
+    clear:both
+}
+.texta{
+
+	border-radius: 25px;
+    padding: 12px 30px;
+	resize: none;
+	outline: none;
+	}
+.contact1-form{
+	width: 80%;
+
+}
+    /* stype for paper*/
+    .paper-container{
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        margin: 30px;
+        padding: 20px;
+
+    }
+    .m-question-list{
+        display: flex;
+        flex-direction: column;
+        margin-top: 100px;
+    }
+
+    .btn-export{
+        border: 1px solid black;
+        padding: 20px;
+    }
+    .btn-export button{
+        margin: 0 100px;
+    }
+</style>
+
+<%if(feedBack === 'OK') {%>
+
+    <%
+    if(response_for === 'draft')
+    {%>
+
+    <div class="app-content" style="padding-top: 40px;">
+        <nav style="position: fixed;background-color: transparent;" class="navbar navbar-expand navbar-light bg-white">
+
+        <form action="/questionPaper" method="post">
+
+        <button type="button" class="btn btn-sidebar" data-toggle="sidebar"><i class="icon-menu"></i></button>
+    </nav><nav aria-label="breadcrumb"></nav>
+
+    <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2><%=mQuestions[0].program%><b><%=mQuestions[0].course%> </b> || Questions Paper - Review</h2></div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i>Create Question Paper </button>
+                        </div>
+                    </div>
+                </div>
+                    <table class="table table-bordered" id="course">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #2e8cc2; opacity:0.9; width:50px">ID</th>
+                                <th style="background-color: #2e8cc2; opacity:0.9">Question</th>
+                                <th style="background-color: #2e8cc2; opacity:0.9">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <input type="hidden" name="classId" value="<%=classId%>">
+                            <% for(var i=0; i < mQuestions.length; i++) {  %>
+                                <tr>
+                                <input type="hidden" id="Qid" name="finalQuestionIds" value="<%=mQuestions[i]._id %>">
+                                <td><%= i+1 %></td>
+                                <td>
+                                    <div class="question-div">
+                                        <div class="question">
+                                            <p><%= mQuestions[i].text %></p>
+                                        </div>
+                                        <div class="question">
+                                            <p><%= mQuestions[i].note %></p>
+                                        </div>
+                                        <div class="question-opt">
+                                            <ul class="opts">
+                                                <li><%= mQuestions[i].difficulty %></li>
+                                                <li><%= mQuestions[i].mark %></li>
+                                                <li><%= mQuestions[i].type %></li>
+                                                <li><%= mQuestions[i].topic %></li>
+                                                <!-- <% if(mQuestions[i].type !== 'theory') {%>
+                                                    <li>
+                                                        <select>
+                                                        <% for(var j=0; j < mQuestions[i].options[j]; j++) {  %>
+                                                            <option><%= mQuestions[i].options[j] %></option>
+                                                        <% }%>
+                                                        </select>
+                                                        </li>
+                                                <% }%> -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                <a class='delete' title='Delete' data-toggle='tooltip' onclick=''>
+                                        <i class='material-icons'>&#xE872;</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <% } %>
+                            </tbody>
+                    </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <% }
+
+    else if(response_for === 'final')
+
+    { %>
+
+    <div align="center">
+    <form class="contact1-form validate-form" action="/saveQuestionPaper" method="POST">
+                    <span class="contact1-form-title">
+                        Question Paper Infomation
+                    </span>
+                    <input hidden  type="text" value="<%=mProgramId%>" name="programId">
+                    <input hidden  type="text" value="<%=mCourseId%>" name="courseId">
+                    <input hidden  type="text" value="<%=mClassId%>" name="classId">
+                    <input hidden  type="text" value="<%=mDifficulty%>" name="difficulty">
+                    <input hidden  type="text" value="<%=mTotalQuestion%>" name="totalQuestion">
+                    <input hidden  type="text" value="<%=mtotalMarks%>" name="totalMarks">
+                    <input hidden  type="text" value="<%=mCacheId%>" name="cacheId">
+
+                    <div class="wrap-input1 validate-input">
+					<div class="sideleft validate-input" >
+					    <input class="input1" type="text" id="examDate" required name="examDate" placeholder="Exam Date- Format: dd-mm-yy" oninput="getDate()">
+					    <span class="shadow-input1"></span>
+				    </div>
+                        <div class="sideright validate-input" >
+                            <input class="input1" type="number" id="timeDuration" required name="timeDuration" placeholder="Time Duration - in Minutes" oninput="getTime()">
+                            <span class="shadow-input1"></span>
+				        </div>
+                </div>
+                 <div class="wrap-input1 validate-input">
+					 <div class="validate-input" >
+                            <input class="input1" required type="text" id="examName" name="examName" placeholder="ExamName: Ex: Winter-2020" oninput="getExam()">
+                        </div>
+			    </div>
+                <div class="clearfix"></div>
+                 <div class="wrap-input1 validate-input" required >
+					<textarea class="input1 texta" rows="4" name="instructions" id="instructions" placeholder="Instructions" oninput="getIns()"></textarea>
+						<span class="shadow-input1"></span>
+			    </div>
+                <div class="clearfix"></div>
+    </div>
+            <div id="exportContent">
+
+                <div class="paper-container">
+            <div class="header-info">
+                <h2 style="text-align: center;"><span id="printExam" style="font-family: 'Courier New', Courier, monospace;font-weight: bold;"></span></h2>
+                <h4 style="text-align: center;"><span id="ProgramAndCourse" style="font-family: 'Courier New', Courier, monospace;font-weight: bold;">  </span></h4>
+                <table >
+                    <tr>
+                        <td style="width: 5%;"></td>
+                        <td style="width: 45%;text-align: left;">
+                            <p> <span id="printDate" style="font-family: 'Courier New', Courier, monospace;"></span></p>
+                        </td>
+                        <td style="width: 45%;text-align: right;">
+                            <p> <span id="printTime" style="font-family: 'Courier New', Courier, monospace; "></span> </p>
+                        </td>
+                        <td style="width: 5%;"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 5%;"></td>
+                        <td style="width: 45%;text-align: left;">
+                            <p><span id="totalQues" style="font-family: 'Courier New', Courier, monospace;">Total Questions: <%= mTotalQuestion %></span> </p>
+                        </td>
+                        <td style="width: 45%;text-align: right;">
+                            <p><span id="totalMarks" style="font-family: 'Courier New', Courier, monospace;">Total Marks : <%= mtotalMarks%></span></p>
+                        </td>
+                        <td style="width: 5%;"></td>
+                    </tr>
+                    <hr>
+                </table>
+                <p style="padding-left: 5%;"> <span id="printIns" style="font-family: 'Courier New', Courier, monospace;"></span> </p>
+            </div>
+            <hr>
+
+            <div class="m-question-list" align="center">
+                <table >
+                    <% for(var i=0; i < mQuestions.length; i++) {  %>
+                    <tr >
+                        <td style="text-align: left;width: 7%;vertical-align: top;">
+                            <div class="sr-no">
+                                <p style="text-align: left;"><strong> Q :<%= i+1 %> </strong> </p>
+                            </div>
+                        </td>
+                        <td style="text-align: left;width: 84%;vertical-align: top;">
+                            <div class="m-question" style="margin-bottom:100px;">
+                                <p> <%= mQuestions[i].text %>   </p>
+                                <% if(mQuestions.note !== '') {%>
+                                    <p><strong> NOTE:</strong> &ensp;<%= mQuestions[i].note %> </p>
+                                <%}%>
+                                <% if(mQuestions.type !== 'theory') {%>
+                                    <ul>
+                                        <% for(var j=0; mQuestions[i].options[j]; j++) {  %>
+                                            <li>&ensp;&ensp;(<%=j+1%>)&ensp;<%= mQuestions[i].options[j] %> </li>
+                                <%}%>
+                                    <ul>
+                                    <%}%>
+                            </div>
+                        </td>
+                        <td style="text-align: left;width: 7%;vertical-align: top;">
+                            <div class="m-marks" style="float: right;">
+                                <p style="text-align: right;"><strong><%= mQuestions[i].mark %> </strong></p>
+                           </div>
+                        </td>
+                    </tr>
+                </div>
+                <%}%>
+                </table>
+                </div>
+            </div>
+            </div>
+            <div class="btn-export">
+                <div class="container-contact1-form-btn">
+                    <button type="submit"  type='submit' class="contact1-form-btn" >
+                                <span>
+                                    Save
+                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                </div>
+                </form>
+            </div>
+    <% }
+    else if(response_for === 'view')
+    {%>
+
+<div align="center">
+            <span class="contact1-form-title">
+                Question Paper
+            </span>
+<div class="container">
+     <%	if (errorMessage) { %>
+            <div class="alert alert-danger alert-dismissible"  style=" text-align: center;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <%= errorMessage %>
+              </div>
+
+        <% } else if(okMessage){%>
+            <div class="alert alert-success alert-dismissible" style="width: 50%;text-align: center;;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <%= okMessage %>
+                                </div>
+                            <%}%>
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>
+                       </h2></div>
+                    <div class="col-sm-4">
+                        <%if(!QuestionPaper.public) {%>
+                            <a href="/changeAccess/<%=QuestionPaper._id%>"><button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>MakePublic</button></a>
+                        <%} else {%>
+                            <a href="/changeAccess/<%=QuestionPaper._id%>"><button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>MakePrivate</button></a>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        <div id="exportContent">
+            <div class="paper-container" >
+            <div  style="margin-top: 20px;">
+                <h2 style="text-align: center;"><span id="printExam" style="font-family: 'Courier New', Courier, monospace;font-weight: bold;"><%=QuestionPaper.exam_name%></span></h2>
+                <h4 style="text-align: center; margin-bottom: 20px;"><span id="ProgramAndCourse" style="font-family: 'Courier New', Courier, monospace;font-weight: bold;"><%=QuestionPaper.program%> - <%=QuestionPaper.course%>  </span></h4>
+                <table>
+                    <tr>
+                        <td style="width: 2%;"></td>
+                        <td style="width: 45%;text-align: left;">
+                            <p><span id="totalQues" style="font-family: 'Courier New', Courier, monospace;">Total Questions: <%=QuestionPaper.total_question%></span> </p>
+                        </td>
+                        <td style="width: 45%;text-align: right;">
+                            <p><span  style="font-family: 'Courier New', Courier, monospace;">Total Marks : <%=QuestionPaper.total_mark%></span></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="width: 2%;"></td>
+                        <td style="width: 45%;text-align: left;">
+                            <p align="left"><span id="totalQues" style="font-family: 'Courier New', Courier, monospace;">Time Durations :  <%=QuestionPaper.time_duration%> Mins</span> </p>
+                        </td>
+
+                        <td style="width: 45%;text-align: right;">
+                            <p align="right"> <span id="totalMarks" style="font-family: 'Courier New', Courier, monospace;">Exam Date :<%=QuestionPaper.exam_date%></span></p>
+                        </td>
+                        <td style="width: 5%;"></td>
+                    </tr>
+                </table>
+                <p style="padding-left: 5%;"><span id="printIns" style="font-family: 'Courier New', Courier, monospace;">
+                   Instructions: <%=QuestionPaper.instructions%>
+                </span></p>
+            </div>
+            <hr>
+            <div class="m-question-list" align="center">
+                <table >
+                    <% for(var i=0; QuestionPaper.questions[i]; i++) {  %>
+                    <tr >
+                        <td style="text-align: left;width: 7%;vertical-align: top;">
+                            <div class="sr-no">
+                                <p style="text-align: left;"><strong> Q - <%= i+1 %> </strong> </p>
+                            </div>
+
+                        </td>
+                        <td style="text-align: left;width: 84%;vertical-align: top;">
+                            <div class="m-question" style="margin-bottom:100px;">
+                                <p><%= QuestionPaper.questions[i].text %></p>
+                                 <% if(QuestionPaper.questions[i].note !== '') {%>
+                                    <p><strong> NOTE:</strong> &ensp;<%= QuestionPaper.questions[i].note %> </p>
+                                <%}%>
+                               <% if(QuestionPaper.questions[i].type !== 'theory') {%>
+                                    <ul>
+                                      <% for(var j=0; QuestionPaper.questions[i].options[j]; j++) {  %>
+                                            <li>&ensp;&ensp;(<%=j+1%>) <%= QuestionPaper.questions[i].options[j] %></li>
+                                <%}%>
+                                    <ul>
+                                    <%}%>
+                            </div>
+                        </td>
+                        <td style="text-align: left;width: 7%;vertical-align: top;">
+                            <div class="m-marks" style="float: right;">
+                                <p style="text-align: right;"><strong><%=QuestionPaper.questions[i].mark %> </strong></p>
+                           </div>
+                        </td>
+                    </tr>
+                </div>
+                <%}%>
+                </table>
+                </div>
+            </div>
+            </div>
+            <div class="btn-export">
+                <div class="container-contact1-form-btn">
+                            <button class="contact1-form-btn"  onclick="Export2Doc('exportContent', 'MSCIT-IT206');">
+                                <span>
+                                    Export as .doc
+                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                </div>
+            </div>
+    <% }%>
+<% }
+else { %>
+    <h1 align="center">
+        <%= feedBack %>
+    </h1>
+<% } %>
+
+ <script>
+    function Export2Doc(element, filename = ''){
+    var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+    var postHtml = "</body></html>";
+    var html = preHtml+document.getElementById(element).innerHTML+postHtml;
+
+    var blob = new Blob(['\ufeff', html], {
+        type: 'application/msword'
+    });
+
+    // Specify link url
+    var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+
+    // Specify file name
+    filename = filename?filename+'.doc':'document.doc';
+
+    // Create download link element
+    var downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+
+    if(navigator.msSaveOrOpenBlob ){
+        navigator.msSaveOrOpenBlob(blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = url;
+
+        // Setting the file name
+        downloadLink.download = filename;
+
+        //triggering the function
+        downloadLink.click();
+    }
+
+    document.body.removeChild(downloadLink);
+}
+     // Delete row on delete button click
+    $(document).on("click", ".delete", function(){
+        $(this).parents("tr").remove();
+        var v = $(this).siblings('input').val();
+        console.log(v);
+        var n = $(this).siblings('input').val() = '';
+        console.log(n);
+    });
+</script>
+
+
+<script>
+    function getExam() {
+        //topic
+      var examName = document.getElementById("examName").value;
+      examName=examName.toUpperCase();
+      document.getElementById("printExam").innerHTML = examName;
+    }
+</script>
+
+<script>
+    function getTime() {
+        //time
+        var timeDuration = document.getElementById("timeDuration").value;
+        document.getElementById("printTime").innerHTML = "Time: " +  timeDuration + "Mins";
+    }
+</script>
+<script>
+    function getDate() {
+      //date
+      var examDate = document.getElementById("examDate").value;
+        document.getElementById("printDate").innerHTML = "Date: " + examDate;
+    }
+</script>
+<script>
+    function getIns() {
+      //instruction
+      var ins = document.getElementById("instructions").value;
+        document.getElementById("printIns").innerHTML = "Instructions : \n" + ins;
+    }
+    </script>
+
+<script>
+    function getExam() {
+        //topic
+      var x = document.getElementById("examName").value;
+      x=x.toUpperCase();
+      document.getElementById("printExam").innerHTML = x;
+      //time
+      var x = document.getElementById("examName").value;
+      x=x.toUpperCase();
+      document.getElementById("printExam").innerHTML = x;
+      //date
+      //instruction
+    }
+    </script>
+
+
+
+
+
+
+
+
+

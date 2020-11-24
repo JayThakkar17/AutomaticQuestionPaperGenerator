@@ -1,0 +1,127 @@
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/images/da1.png" />
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/ContactFrom_v1/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/ContactFrom_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/ContactFrom_v1/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/ContactFrom_v1/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/ContactFrom_v1/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/ContactFrom_v1/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/ContactFrom_v1/css/main.css">
+<!--===============================================================================================-->
+<meta name="author" content="Marx JMoura">
+<meta name="description" content="Create simple forms using basic elements.">
+<title><%= user.role %></title>
+<link rel="icon" href="/images/da1.png">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+<link href="/stylesheets/admin4b.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<body
+    <div class="app">
+        <div class="app-body">
+            <div class="app-sidebar">
+                <div class="text-right">
+                    <button type="button" class="btn btn-sidebar" data-dismiss="sidebar">
+                        <span class="x"></span></button></div>
+
+                <div class="sidebar-header">
+                    <img src="/images/da1.png" class="user-photo">
+                    <p class="username"><%= user.name %><br><small><%= user.email%></small></p>
+                </div>
+
+                <ul id="sidebar-nav" class="sidebar-nav">
+                    <li class="sidebar-nav-btn"><a href="#"
+                            class="btn btn-block btn-outline-light"><%= user.role %></a></li>
+                    <li class="sidebar-nav-group"><a href="#content" class="sidebar-nav-link" data-toggle="collapse"><i
+                                class="icon-doc"></i>list Questions</a>
+                        <ul id="content" class="collapse" data-parent="#sidebar-nav">
+							<li><a href="/sGetPublicQuestions" class="sidebar-nav-link">List Questions</a></li>
+                    </li>
+                </ul>
+                </li>
+                <li class="sidebar-nav-group"><a href="#forms" class="sidebar-nav-link"data-toggle="collapse"><i
+                            class="icon-doc"></i>Question Paper</a>
+                    <ul id="forms" class="collapse" data-parent="#sidebar-nav">
+                        <li><a href="/getPublicQuestionPapers" class="sidebar-nav-link">Question Paper</a></li>
+                    </ul>
+                </li>
+
+                <div class="sidebar-footer">
+                    <a href="/logout" data-toggle="tooltip" title="Logout"><i class="icon-logout"></i> Logout</a></div>
+            </div>
+
+
+	<div class="app-content">
+	<nav class="navbar navbar-expand navbar-light bg-white">
+	<button type="button" class="btn btn-sidebar" data-toggle="sidebar"><i class="icon-menu"></i></button>
+
+	<ul class="navbar-nav ml-auto" hidden	>
+	<li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="badge badge-pill badge-primary">3</span> <i class="icon-bell"></i></a><div class="dropdown-menu dropdown-menu-right"><a href="./pages/content/notification.html" class="dropdown-item"><small class="dropdown-item-title">Lorem ipsum (today)</small><br><div>Lorem ipsum dolor sit amet...</div></a>
+
+	<div class="dropdown-divider"></div>
+
+	<a href="./pages/content/notification.html" class="dropdown-item"><small class="text-secondary">Lorem ipsum (yesterday)</small><br><div>Lorem ipsum dolor sit amet...</div></a>
+
+	<div class="dropdown-divider"></div>
+	<a href="./pages/content/notification.html" class="dropdown-item"><small class="text-secondary">Lorem ipsum (12/25/2017)</small><br><div>Lorem ipsum dolor sit amet...</div></a>
+	<div class="dropdown-divider"></div>
+	<a href="./pages/content/notifications.html" class="dropdown-item dropdown-link">See all notifications</a></div></li></ul></nav>
+		<div class="app-content" style="padding-top: 40px;">
+		<nav style="position: fixed;background-color: transparent;" class="navbar navbar-expand navbar-light bg-white">
+			<button type="button" class="btn btn-sidebar" data-toggle="sidebar"><i class="icon-menu"></i></button>
+		</nav><nav aria-label="breadcrumb"></nav>
+
+
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	<script src="/public/javascripts/admin4b.min.js"></script>
+	<script src="/public/javascripts/admin4b.docs.js"></script>
+
+
+	<!--===============================================================================================-->
+		<script src="/ContactFrom_v1/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+		<script src="/ContactFrom_v1/vendor/bootstrap/js/popper.js"></script>
+		<script src="/ContactFrom_v1/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+		<script src="/ContactFrom_v1/vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+		<script src="/ContactFrom_v1/vendor/tilt/tilt.jquery.min.js"></script>
+		<script >
+			$('.js-tilt').tilt({
+				scale: 1.1
+			})
+		</script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-23581568-13');
+	</script>
+
+	<!--===============================================================================================-->
+		<script src="/ContactFrom_v1/js/main.js"></script>
+

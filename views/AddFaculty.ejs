@@ -1,0 +1,71 @@
+<%- include('partials/headerAdmin.ejs') %>
+<div align="center">
+	<%	if (errorMessage) { %>
+		<div class="alert alert-danger alert-dismissible"  style=" text-align: center;">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<%= errorMessage %>
+		  </div>
+
+	<% } else if(okMessage){%>
+		<div class="alert alert-success alert-dismissible" style="width: 50%;text-align: center;;">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<%= okMessage %>
+							</div>
+						<%}%>
+
+	<form class="contact1-form validate-form" action="/addFaculty" method="post">
+					<span class="contact1-form-title">
+						Add Faculty
+					</span>
+
+					<div class="wrap-input1 validate-input"  >
+						<input class="input1" type="text" required name="name" placeholder="Faculty Name">
+						<span class="shadow-input1"></span>
+					</div>
+
+					<div class="wrap-input1 validate-input"   >
+						<input class="input1" type="email" required name="email" placeholder="Faculty E-Mail">
+						<span class="shadow-input1"></span>
+					</div>
+
+					<!-- <div class="wrap-input1 validate-input"   "phone numbet is required">
+						<input class="input1" type="text" name="fac" placeholder="Phone number">
+						<span class="shadow-input1"></span>
+					</div> -->
+					<div class="wrap-input1 validate-input"  >
+						<input class="input1" type="password" required name="password" placeholder="Password">
+						<span class="shadow-input1"></span>
+					</div>
+					<input type="hidden" name="role" value="faculty">
+					<!-- <div class="wrap-input1 validate-input"  >
+						<input class="input1" type="text" name="userName" placeholder="Picture">
+						<span class="shadow-input1"></span>
+					</div>
+	 -->
+
+					<!-- <div class="wrap-input1 validate-input"   >
+						<textarea class="input1" name="message" placeholder="Message"></textarea>-->
+						<!-- <select class="input1">
+							<option>--Select Faculty Type--</option>
+							<option>okk</option>
+							<option>okk2</option>
+							<option>okk3</option>
+						</select>
+						<span class="shadow-input1"></span>
+					</div> -->
+					<div class="container-contact1-form-btn">
+						<button class="contact1-form-btn" onclick="addFaculty">
+							<span>
+								ADD
+								<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+							</span>
+						</button>
+					</div>
+
+				</form>
+				</div>
+
+
+
+
+	</div></div></div>
